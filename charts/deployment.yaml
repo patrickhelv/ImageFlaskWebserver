@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-app
+  labels:
+    app: web-server-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-server-app
+  template:
+    metadata:
+      labels:
+        app: web-server-app
+    spec:
+      containers:
+      - name: web-server-app
+        image: localhost:5001/web-server-app:latest
+        ports:
+        - containerPort: 5000
