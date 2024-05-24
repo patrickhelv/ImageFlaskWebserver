@@ -2,21 +2,17 @@
 
 Basic webserver that listens to json requests from the dds-translator python program. It displays finished images in a video stream.
 
+## Getting Started
 
-## Getting 
+### Requirements
 
-## Requirements
-
-```
-docker
-python 3.11
-kubernetes
-```
+- docker
+- python 3.11
+- a kubernetes distribution
 
 Python requirements
-```
-flask
-```
+
+- flask
 
 ### Run locally 
 
