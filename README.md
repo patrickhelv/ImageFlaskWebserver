@@ -30,7 +30,7 @@ Access the webserver on localhost:5000
 
 #### Using docker registry
 
-The charts are using a local registry to deploy using docker registry follow this guide [here](https://docs.docker.com/docker-hub/quickstart/) and 
+The charts are using a local registry to deploy using docker hub follow this guide [here](https://docs.docker.com/docker-hub/quickstart/) and 
 modify the ``image`` field in deployment.yaml.
 
 ```yaml
