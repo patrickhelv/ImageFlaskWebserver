@@ -50,7 +50,7 @@ sudo docker run -d -p 5001:5000 --restart=always --name registry registry:latest
 #### Build the image 
 
 ```bash
-docker build -t web-server-app
+docker build -t web-server-app .
 docker tag web-server-app localhost:5001/web-server-app:latest
 docker push localhost:5001/web-server-app:latest
 ```
