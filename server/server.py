@@ -1,28 +1,30 @@
 from flask import Flask, request, jsonify, Response, render_template_string
 import base64
 import threading
+import queue
 
 app = Flask(__name__)
 
-latest_image = None
+image_queue = queue.Queue()
 lock = threading.Lock()
 
 @app.route('/api/upload_image', methods=['POST'])
 def upload_image():
-    global latest_image
     data = request.json
+    image_data = base64.b64decode(data['image'])
     with lock:
-        latest_image = base64.b64decode(data['image'])
+        image_queue.put(image_data)
     return jsonify({'status': 'success'}), 200
 
 def generate():
-    global latest_image
     while True:
+        frame = None
         with lock:
-            if latest_image:
-                frame = latest_image
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            if not image_queue.empty():
+                frame = image_queue.get()
+        if frame:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def index():
