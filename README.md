@@ -18,6 +18,7 @@ Python requirements
 
 ```bash
 docker compose build . 
+docker compose up
 ```
 
 Access the webserver on localhost:5000
