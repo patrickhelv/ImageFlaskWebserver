@@ -7,6 +7,6 @@ COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
+EXPOSE 6066
 
 CMD ["python", "server.py"]

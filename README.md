@@ -36,7 +36,7 @@ spec:
       - name: web-server-app
         image: localhost:5001/web-server-app:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 6066
 ```
 
 #### If using a local registry
@@ -45,7 +45,7 @@ Deploy a local registry, ONLY if you do not have one deployed check using ``dock
 in the image name.
 
 ```bash
-sudo docker run -d -p 5001:5000 --restart=always --name registry registry:latest
+sudo docker run -d -p 5001:6066 --restart=always --name registry registry:latest
 ```
 
 #### Build the image 

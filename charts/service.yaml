@@ -8,5 +8,5 @@ spec:
   ports:
     - protocol: TCP
       port: 3002
-      targetPort: 5000
+      targetPort: 6066
   type: LoadBalancer

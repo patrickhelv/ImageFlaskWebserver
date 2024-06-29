@@ -18,4 +18,4 @@ spec:
       - name: web-server-app
         image: localhost:5001/web-server-app:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 6066
