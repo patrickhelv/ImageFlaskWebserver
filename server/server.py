@@ -5,6 +5,7 @@ import queue
 
 app = Flask(__name__)
 
+MAX_QUEUE_SIZE = 30
 image_queue = queue.Queue()
 lock = threading.Lock()
 
@@ -13,6 +14,8 @@ def upload_image():
     data = request.json
     image_data = base64.b64decode(data['image'])
     with lock:
+        if image_queue.full():
+            image_queue.get()  # Drop the oldest image
         image_queue.put(image_data)
     return jsonify({'status': 'success'}), 200
 
