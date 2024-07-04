@@ -6,7 +6,8 @@ import queue
 app = Flask(__name__)
 
 MAX_QUEUE_SIZE = 30
-image_queue = queue.Queue()
+CLEAR_INTERVAL = 120
+image_queue = queue.Queue(MAX_QUEUE_SIZE)
 lock = threading.Lock()
 
 @app.route('/api/upload_image', methods=['POST'])
@@ -47,6 +48,15 @@ def index():
 def video_feed():
     return Response(generate(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+def clear_queue_periodically():
+    while True:
+        time.sleep(CLEAR_INTERVAL)
+        with lock:
+            while not image_queue.empty():
+                image_queue.get()
+        print("Cleared the image queue.")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
