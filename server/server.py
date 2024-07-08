@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, Response, render_template_string
 import base64
 import threading
 import queue
+import time
 
 app = Flask(__name__)
 
@@ -29,6 +30,8 @@ def generate():
         if frame:
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        else:
+            time.sleep(0.1)  # Sleep for a short time to reduce CPU usage
 
 @app.route('/')
 def index():
@@ -59,4 +62,7 @@ def clear_queue_periodically():
         print("Cleared the image queue.")
 
 if __name__ == '__main__':
+    clear_thread = threading.Thread(target=clear_queue_periodically)
+    clear_thread.daemon = True
+    clear_thread.start()
     app.run(host='0.0.0.0', port=5000)
